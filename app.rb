@@ -312,7 +312,7 @@ def get_channel_id(channel_name)
 end
 
 def get_channels_list
-  uri = "https://slack.com/api/channels.list?token=#{ENV['API_TOKEN']}"
+  uri = "https://slack.com/api/conversations.list?token=#{ENV['API_TOKEN']}"
   request = HTTParty.get(uri)
   response = JSON.parse(request.body)
   if response['ok']
@@ -349,7 +349,7 @@ end
 
 def import_history(channel_id, opts = {})
   options = { oldest: 0 }.merge(opts)
-  uri = "https://slack.com/api/channels.history?token=#{ENV['API_TOKEN']}&channel=#{channel_id}&count=1000"
+  uri = "https://slack.com/api/conversations.history?token=#{ENV['API_TOKEN']}&channel=#{channel_id}&count=1000"
   uri += "&latest=#{options[:latest]}" unless options[:latest].nil?
   request = HTTParty.get(uri)
   response = JSON.parse(request.body)
